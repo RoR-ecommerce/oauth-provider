@@ -7,12 +7,19 @@ gem 'rails', '3.2.12'
 
 gem 'rails-api'
 
-gem 'pg'
+gem 'pg', "~> 0.14.1"
 
 gem 'songkick-oauth2-provider', "~> 0.10.2"
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
+
+# For strong params
+gem "strong_parameters", "~> 0.2.0"
+
+group :development, :test do
+  gem "rspec-rails", "~> 2.13.0"
+end
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
