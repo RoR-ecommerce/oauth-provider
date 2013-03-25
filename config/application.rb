@@ -66,5 +66,8 @@ module UfcfitAccountsApi
     config.assets.version = '1.0'
     config.generators.stylesheets = false
     config.generators.javascripts = false
+    config.generators do |g|
+      g.fixture_replacement :factory_girl
+    end
   end
 end
