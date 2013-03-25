@@ -9,7 +9,7 @@ gem 'rails-api'
 
 gem 'pg', "~> 0.14.1"
 
-gem 'songkick-oauth2-provider', "~> 0.10.2"
+gem 'songkick-oauth2-provider', :git => "git@github.com:khurramzaman/oauth2-provider.git"
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'

@@ -14,7 +14,7 @@ class OauthAuthorizeController < ApplicationController
   def authorize_password
     Songkick::OAuth2::Provider.handle_passwords do |client, email, password, scopes|
       if user = User.authenticate?(email, password)
-        user.grant_access!(client, :scopes => [], :duration => 1.day)
+        user.grant_access!(client, :scopes => scopes, :duration => 1.day)
       else
         nil
       end
@@ -29,7 +29,16 @@ class OauthAuthorizeController < ApplicationController
   end
 
   def authorize_client_credentials
-    # to do
+    Songkick::OAuth2::Provider.handle_client_credentials do |client, owner, scopes|
+      owner.grant_access!(client, :scopes => scopes, :duration => 1.day)
+    end
+
+    oauth = Songkick::OAuth2::Provider.parse(nil, env)
+    response.headers = oauth.response_headers
+
+    if body = oauth.response_body
+      render :text => body, :status => oauth.response_status
+    end
   end
 
 end

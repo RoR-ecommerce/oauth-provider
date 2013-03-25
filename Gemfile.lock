@@ -1,3 +1,13 @@
+GIT
+  remote: git@github.com:khurramzaman/oauth2-provider.git
+  revision: 3dc2f2dcfe22ae4c378505341e682c94eb09496f
+  specs:
+    songkick-oauth2-provider (0.10.2)
+      activerecord
+      bcrypt-ruby
+      json
+      rack
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -59,7 +69,7 @@ GEM
     mime-types (1.21)
     mocha (0.10.5)
       metaclass (~> 0.0.1)
-    multi_json (1.7.1)
+    multi_json (1.7.2)
     multi_xml (0.5.3)
     multipart-post (1.2.0)
     oauth2 (0.9.1)
@@ -114,11 +124,6 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
-    songkick-oauth2-provider (0.10.2)
-      activerecord
-      bcrypt-ruby
-      json
-      rack
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -148,5 +153,5 @@ DEPENDENCIES
   rails-api
   rspec-rails (~> 2.13.0)
   shoulda-matchers
-  songkick-oauth2-provider (~> 0.10.2)
+  songkick-oauth2-provider!
   strong_parameters (~> 0.2.0)
