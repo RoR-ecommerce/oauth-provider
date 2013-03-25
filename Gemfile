@@ -19,7 +19,12 @@ gem "strong_parameters", "~> 0.2.0"
 
 group :development, :test do
   gem "rspec-rails", "~> 2.13.0"
+  gem 'factory_girl_rails', '~> 4.2.1'
+  gem 'faker'
+  gem 'shoulda-matchers'
+  gem 'oauth2'
 end
+
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
