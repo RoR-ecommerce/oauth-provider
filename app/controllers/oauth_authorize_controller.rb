@@ -1,7 +1,17 @@
 class OauthAuthorizeController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
-  def sign_in
+  VALID_GRANT_TYPES = ['password', 'client_credentials']
+
+  def token
+    render :text => "Grant type is not valid.", :status => 400 and return unless VALID_GRANT_TYPES.include?(params[:grant_type])
+    send "authorize_#{params[:grant_type]}"
+  end
+
+
+  protected
+
+  def authorize_password
     Songkick::OAuth2::Provider.handle_passwords do |client, email, password, scopes|
       if user = User.authenticate?(email, password)
         user.grant_access!(client, :scopes => [], :duration => 1.day)
@@ -17,4 +27,9 @@ class OauthAuthorizeController < ApplicationController
       render :text => body, :status => oauth.response_status
     end
   end
+
+  def authorize_client_credentials
+    # to do
+  end
+
 end

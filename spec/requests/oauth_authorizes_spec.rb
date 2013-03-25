@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe "OauthAuthorizes" do
-  describe "GET /oauth_authorizes" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get oauth_authorizes_path
-      response.status.should be(200)
+  describe "GET /token" do
+    it "returns http bad request if grant_type is not valid" do
+      get oauth_token_path
+      response.status.should be(400)
     end
   end
 end
