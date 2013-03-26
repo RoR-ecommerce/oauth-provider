@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   include Songkick::OAuth2::Model::ResourceOwner
   include Songkick::OAuth2::Model::ClientOwner
 

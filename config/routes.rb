@@ -6,6 +6,7 @@ UfcfitAccountsApi::Application.routes.draw do
   namespace :api do
     namespace :v1 do
       match "/me", :controller => "users", :action => "me"
+      resources :users
     end
   end
 
