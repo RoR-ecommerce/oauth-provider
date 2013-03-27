@@ -1,6 +1,6 @@
 GIT
-  remote: git@github.com:khurramzaman/oauth2-provider.git
-  revision: 3dc2f2dcfe22ae4c378505341e682c94eb09496f
+  remote: git://github.com/khurramzaman/oauth2-provider.git
+  revision: e40e357c9e850661a10e9584d6fcd9a610fcbc5b
   specs:
     songkick-oauth2-provider (0.10.2)
       activerecord
