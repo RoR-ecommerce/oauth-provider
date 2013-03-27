@@ -25,6 +25,7 @@ group :development, :test do
   gem 'oauth2'
 end
 
+gem 'thin'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
