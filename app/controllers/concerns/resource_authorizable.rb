@@ -1,6 +1,15 @@
 module ResourceAuthorizable
   extend ActiveSupport::Concern
 
+  ERROR_MESSAGE = {
+    400 => "Bad Request - Parameter missing",
+    401 => "Unauthorized - No valid API key provided",
+    402 => "Request Failed - Parameters valid but request failed",
+    403 => "Forbidden - Access denied",
+    404 => "Not Found - The requested item doesn't exist",
+    500 => "Server Error = Something went wrong at our end"
+  }
+ 
   module ClassMethods
     def authorize_resource!(*args)
       # Copied from https://github.com/ryanb/cancan/blob/master/lib/cancan/controller_resource.rb
@@ -25,7 +34,7 @@ module ResourceAuthorizable
                               access_token,
                               detect_transport_error(env))
     response.headers = token.response_headers
-    render :json => {:error => "Authorization Failed."}, :status => token.response_status unless token.valid?
+    render :json => {:message => ERROR_MESSAGE[token.response_status]}, :status => token.response_status unless token.valid?
   end
 
   def oauth2_token(request)
