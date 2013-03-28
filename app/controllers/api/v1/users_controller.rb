@@ -17,26 +17,26 @@ class Api::V1::UsersController < Api::V1::ApiController
   end
 
   def create
-    @user = User.create(params[:user])
-    respond_with(@user)
+    @user = User.create(user_params)
+    respond_with(@user, :location => api_v1_user_path(@user))
   end
 
   def show
-    respond_with(@user)
+    respond_with(@user, :location => api_v1_user_path(@user))
   end
 
   def edit
-    respond_with(@user)
+    respond_with(@user, :location => api_v1_user_path(@user))
   end
 
   def update
     @user.update_attributes!(user_params)
-    respond_with(@user)
+    respond_with(@user, :location => api_v1_user_path(@user))
   end
 
   def destroy
     @user.destroy
-    respond_with(@user)
+    respond_with(@user, :location => api_v1_user_path(@user))
   end
 
   protected

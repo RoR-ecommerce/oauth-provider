@@ -15,15 +15,15 @@ describe Api::V1::UsersController do
 
     describe 'User#me' do
       it "returns a user whose username and password was used to get the access token" do
-        @token.get('/api/v1/me', :params => {:email => user.email})
-        response.body.should be_json_eql(user.to_json)
+        response = @token.get('/api/v1/me', :params => {:email => user.email})
+        response.body.should == user.to_json
       end
     end
 
     describe 'User#show' do
       it "returns a user whose username and password was used to get the access token" do
-        @token.get("/api/v1/users/#{user.id}")
-        response.body.should be_json_eql(user.to_json)
+        response = @token.get("/api/v1/users/#{user.id}")
+        response.body.should == user.to_json
       end
     end
   end
@@ -39,8 +39,9 @@ describe Api::V1::UsersController do
 
     describe 'User#create' do
       it "creates a user" do
-        @token.post('/api/v1/users', :body => {:email => Faker::Internet.email, :password => Faker::Lorem.characters(8) })
-        response.body.should be_json_eql(user.to_json)
+        email = Faker::Internet.email
+        response = @token.post('/api/v1/users', :body => {:user => {:email => email, :password => Faker::Lorem.characters(8) }})
+        JSON.parse(response.body)["user"]["email"].should == email
       end
     end
 
