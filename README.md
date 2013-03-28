@@ -6,6 +6,17 @@ UFC FIT OAuth Provider provides a single sign on solution for accounts in multip
 
 ###Registering your client application
 
+Please contact the authors of UFC Fit Project to get your application registered for production environments.
+
+Test information:
+
+Site: http://ufcfit-oauth-provider-staging.herokuapp.com/
+
+Client key: e7hkacg16w1mhavvuk41axz0ffw4imd
+
+Client secret: h062zgkoyl8b43x0jjjpcvx2ya6sqx8
+
+Redirect URI: http://localhost:3000/
 
 ##Authentication
 
@@ -13,7 +24,7 @@ UFC FIT OAuth Provider offers client applications the ability to issue authentic
 
 The implementation of authentication on behalf of client application is based on [Client Credentials Grant](http://tools.ietf.org/html/rfc6749#section-4.4) flow of the [OAuth 2.0 specification](http://tools.ietf.org/html/rfc6749).
 
-The implementation of authentication on behalf of specified user is based on [Resource Owner Password Credentials](http://tools.ietf.org/html/rfc6749#section-4.3) Grant flow of [OAuth 2.0 specification](http://tools.ietf.org/html/rfc6749).
+The implementation of authentication on behalf of specified user is based on [Resource Owner Password Credentials Grant](http://tools.ietf.org/html/rfc6749#section-4.3) flow of [OAuth 2.0 specification](http://tools.ietf.org/html/rfc6749).
 
 ###Application based authentication
 
@@ -138,9 +149,14 @@ Getting an access token and making API calls is really easy with [OAuth2 gem](ht
     # application based authentication
     token = client.client_credentials.get_token
 
-    # user based authentication
-    token = client.password.get_token(user_email, user_password)
+    # create new user
+    response = token.post('/api/v1/users/', :body => {:user => {:email => "bla@bla.com", :password => "blabla"}})
 
+    # user based authentication
+    token = client.password.get_token("bla@bla.com", "blabla")
+
+    # get user information
+    response = token.get('/api/v1/me', :params => {:email => "bla@bla.com"})
 
 ##Errors
 
@@ -148,6 +164,7 @@ Getting an access token and making API calls is really easy with [OAuth2 gem](ht
 * 400 Bad Request - Often missing a required parameter.
 * 401 Unauthorized - No valid API key provided.
 * 402 Request Failed - Parameters were valid but request failed.
+* 403 Forbidden - Access denied
 * 404 Not Found - The requested item doesn't exist.
 * 500, 502, 503, 504 Server errors - something went wrong on OAuth Provider's end.
 
@@ -163,7 +180,7 @@ Get the basic information of User.
 
 https://accounts.ufcfit.com/api/v1/users/12345/?access_token=ACCESS-TOKEN
 
-Access token is to be obtained using User based Authentication.
+Access token to be used for authorization should obtained using User based Authentication.
 
 Response:
 
@@ -175,6 +192,12 @@ Response:
         "updated_at":
       }
     }
+
+With Ruby OAuth2 gem:
+
+    # get token from password grant of user 123 and then call
+    response = token.get('/api/v1/users/123')
+
 
 ###POST /api/v1/users/?access_token=ACCESS-TOKEN
 
@@ -202,11 +225,16 @@ Response
       }
     }
 
+With Ruby OAuth2 gem:
+
+    # get token from client credentials grant and call
+    response = token.post('/api/v1/users/', :body => {:user => {:email => "bla@bla.com", :password => "blabla"}})
+
 ###PUT /api/v1/users/user-id/?access_token=ACCESS-TOKEN
 
 Update user email and/or password.
 
-Access token is to be obtained using Application based Authentication.
+Access token to be used for authorization should obtained using User based Authentication.
 
 Params
 
@@ -228,11 +256,16 @@ Response
       }
     }
 
+With Ruby OAuth2 gem:
+
+    # get token from password grant of user 123 and then call
+    response = token.put('/api/v1/users/123/', :body => {:user => {:password => "blablabla"}})
+
 ###DELETE /api/v1/users/user-id/?access_token=ACCESS-TOKEN
 
 De-activate a user.
 
-Access token is to be obtained using Application based Authentication.
+Access token to be used for authorization should obtained using User based Authentication.
 
 Response
 
@@ -244,6 +277,11 @@ Response
         "updated_at":
       }
     }
+
+With Ruby OAuth2 gem:
+
+    # get token from password grant of user 123 and then call
+    response = token.delete('/api/v1/users/123/')
 
 ##Membership/Subscription API Endpoints
 
