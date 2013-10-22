@@ -12,9 +12,9 @@ Test information:
 
 Site: http://ufcfit-oauth-provider-staging.herokuapp.com/
 
-Client key: e7hkacg16w1mhavvuk41axz0ffw4imd
+Client key: 
 
-Client secret: h062zgkoyl8b43x0jjjpcvx2ya6sqx8
+Client secret: 
 
 Redirect URI: http://localhost:3000/
 
